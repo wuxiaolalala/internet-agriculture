@@ -8,7 +8,7 @@
           <el-select v-model="param.type" placeholder="请选择用户类型" style="width: 100%;" clearable>
             <el-option v-for="(item,index) in typeList" :key="index" :label="item.value" :value="item.code"></el-option>
             <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
-          </el-select>
+          </el-select> 
         </el-form-item> 
         <el-form-item prop="username">
           <el-input v-model="param.username" placeholder="请输入用户名">
