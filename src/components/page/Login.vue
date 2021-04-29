@@ -1,6 +1,6 @@
 <template>
   <div class="login-wrap">
-    <div class="ms-login">
+    <div class="ms-login"> 
         <button type="button" class="btn btn-primary btn-arrow-left">箭头向左的按钮</button>
       <div class="ms-title">大学生实习管理平台</div>
       <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
