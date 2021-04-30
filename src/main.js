@@ -10,7 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 import './assets/css/icon.css';
 import './assets/css/iconfont.css'
 import './assets/css/bootstrap.min.css'
-import './components/common/directives';
+import './components/common/directives'; 
 import 'babel-polyfill';
 import demo from './request/apis'
 import moment from 'moment'
