@@ -15,10 +15,7 @@
                 <div class="text-content">
                   <div class="text">
                     <span class="counter">
-                      <ICountUp :delay="delay" 
-                      :endVal="Number(item.value)" 
-                      :decimals="3"
-                      :options="options" @ready="onReady" />
+                      <ICountUp :delay="delay" :endVal="Number(item.value)" :decimals="3" :options="options" @ready="onReady" />
                     </span>
                   </div>
                   <div class="sub-title">{{item.name}}</div>
@@ -71,7 +68,7 @@ export default {
         kongQiTemperature:{ name: '空气温度(℃)', code:'kongQiTemperature', value: 0 }, 
         illumination:{ name: '光照强度(lux)', code:'illumination', value: 0 }, 
         dioxide:{ name: 'CO2浓度(ppm)', code:'dioxide', value: 1560 }, 
-        waterTemperature:{ name: '土壤温度(℃)', code:'waterTemperature', value: 0 }
+        waterTemperature:{ name: '水温(℃)', code:'waterTemperature', value: 0 }
       },
       form:{
         airHumidity:'20',
@@ -135,7 +132,7 @@ export default {
             }).catch(err => { 
                 that.$message.error(err)
             })
-      console.log('leftInitDatas')
+      // console.log('leftInitDatas')
     }
   }
 }
