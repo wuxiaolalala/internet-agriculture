@@ -6,27 +6,27 @@
       <el-table :data="co2Data" style="width: 100%">
         <!-- <el-table-column prop="id" label="ID" align="center">
         </el-table-column> -->
-        <el-table-column prop="deviceSn" label="设备SN号" align="center">
+        <el-table-column prop="deviceSn" label="设备SN号" align="center" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="主机SN号" label="主机SN号" align="center">
+        <el-table-column prop="主机SN号" label="主机SN号" align="center" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="deviceType" label="设备类型" align="center">
+        <el-table-column prop="deviceType" label="设备类型" align="center" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="recordTime" label="记录时间" align="center">
+        <el-table-column prop="recordTime" label="记录时间" align="center" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column v-if="String(tableType) === '2'" prop="ppm" label="二氧化碳浓度" align="center">
+        <el-table-column v-if="String(tableType) === '2'" prop="ppm" label="二氧化碳浓度" align="center" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column v-if="String(tableType) === '1'" prop="intensity" label="光照强度" align="center">
+        <el-table-column v-if="String(tableType) === '1'" prop="intensity" label="光照强度" align="center" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column v-if="String(tableType) === '3'" prop="waterTemperature" label="水温" align="center">
+        <el-table-column v-if="String(tableType) === '3'" prop="waterTemperature" label="水温" align="center" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column v-if="(String(tableType) === '4') || (String(tableType) === '5')" prop="temperature" label="空气温度值" align="center">
+        <el-table-column v-if="(String(tableType) === '4') || (String(tableType) === '5')" prop="temperature" label="空气温度值" align="center" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column v-if="(String(tableType) === '4') || (String(tableType) === '5')" prop="humidity" label="空气湿度值" align="center">
+        <el-table-column v-if="(String(tableType) === '4') || (String(tableType) === '5')" prop="humidity" label="空气湿度值" align="center" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="createTime" label="创建时间" align="center">
+        <el-table-column prop="createTime" label="创建时间" align="center" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="updateTime" label="更新时间" align="center">
+        <el-table-column prop="updateTime" label="更新时间" align="center" show-overflow-tooltip>
         </el-table-column>
       </el-table>
       <div style="text-align: right; margin-top:20px;">
