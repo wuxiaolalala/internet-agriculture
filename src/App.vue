@@ -26,9 +26,5 @@ export default {
 <style>
 @import './assets/css/main.css';
 @import './assets/css/color-dark.css'; /*深色主题*/
-body{
-/*background: url("~@/assets/images/bg.png") 0 0 / 100% 100% no-repeat;*/
-background: url("./assets/images/background.png") 0 0 / 100% 100% no-repeat;
-}
 /*@import "./assets/css/theme-green/color-green.css";   浅绿色主题*/
 </style>

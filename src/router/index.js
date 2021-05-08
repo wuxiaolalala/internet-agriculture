@@ -7,12 +7,17 @@ export default new Router({
     routes: [
         {
             path: '/',
-            redirect:'/internetAgriculture'
+            redirect: '/login'
         },
         {
             path: '/internetAgriculture',
             component: () => import(/* webpackChunkName: "internetAgriculture" */ '../components/page/internetAgriculture/index.vue'),
-            meta: { title: '物联网农业大棚管理平台' }
+            meta: { title: '物联网农业大棚管理平台' , ifCheck: false}
+        },
+        {
+            path: '/login',
+            component: () => import(/* webpackChunkName: "internetAgriculture" */ '../components/page/Login.vue'),
+            meta: { title: '物联网农业大棚管理平台' , ifCheck: false }
         },
         {
             path: '*',

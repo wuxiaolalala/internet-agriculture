@@ -3,6 +3,9 @@ import base from './base'
 import QS from 'qs'
 
 const demo = {
+    login (params) {
+        return axios.post(`${base.egg}/home/user/homeLogin`, params);
+    },
     realTimeData (params) {
         return axios.post(`${base.egg}/home/realTimeData`, params);
     },
