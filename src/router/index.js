@@ -4,7 +4,7 @@ import Router from 'vue-router';
 Vue.use(Router);
 // let redirect = window.userType === '1'?'/usermanagement':'/personalinformation'
 export default new Router({
-    routes: [
+    routes: [ 
         {
             path: '/',
             redirect: '/login'
