@@ -60,7 +60,7 @@
       </div>
       <div style="font-size:12px; color: rgb(245, 108, 108); margin-top:5px;" v-if="errorText !== ''">{{errorText}}</div>
     </div>
-    <div class="operationRight-bottom">
+    <!-- <div class="operationRight-bottom">
       <div style="margin-bottom:10px; margin-top:10px; font-size:14px;">历史数据</div>
       <div>
         <el-select v-model="historyValue" placeholder="请选择" @change="handleChangeHistory">
@@ -68,7 +68,7 @@
           </el-option>
         </el-select>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -82,7 +82,7 @@ export default {
       ifShow:false,
       historyValue:'',
       errorText:'',
-      value:'',
+      value:[],
       form:{
         startYear:2020,
         startMonth:12,
@@ -527,6 +527,7 @@ export default {
       }
       this.title = '各月空气温度平均值'
     this.getAvgDataByYear(params)
+    // this.handleChange([1,1,1])
   },
   methods:{
     getAvgDataByDay(flag){
@@ -687,6 +688,7 @@ export default {
         this.ifShow = true
     },
     handleChange(data){
+      debugger
       // type:1 光照；2 CO2浓度；3 水温；4 空气温度；5 空气湿度；month:1-12
       // console.log(data['0'])
 

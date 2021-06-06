@@ -4,7 +4,7 @@ import state from './state'
 import mutations from './mutations'
 import getters from './getters'
 import actions from './actions'
-import usermanagement from './modules/usermanagement'
+import setting from './modules/setting'
 
 Vue.use(Vuex);
 
@@ -18,7 +18,7 @@ export default new Vuex.Store({
 
   //模块相关
   modules: {
-    usermanagement
+    setting
   },
 
 });

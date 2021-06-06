@@ -7,7 +7,7 @@
       <div>
         <div class="col-sm-12 col-md-12">
           <div class="box-content">
-            <div class="statistic-box row">
+            <div class="statistic-box" style="display:flex; justify-content: space-around;">
               <div class="statistic-item" v-for="item of indexData" v-bind:key="item.name">
                 <div class="icon-content">
                   <span class="iconfont icon-shuju"></span>
@@ -41,11 +41,40 @@
         土壤温度<span style="color:red; margin-left:8px;">{{form.soilTemperature }}</span>
       </div> -->
     </div>
+    <div class="title" style="margin-top:20px;">
+      警告
+    </div>
+    <div style="padding: 0 20px; width:100%;">
+      <div style="padding: 20px 10px 20px 30px;  display:flex; justify-content: space-around; border:1px solid #fff;">
+        <div>
+          <span style="margin-right:10px;">空气湿度:</span>
+          <span :style="{'color':indexData.kongHumidity.if_normal ?'#7FFF00':'red'}">{{indexData.dioxide.if_norma? '正常':'超出范围'}}</span>
+        </div>
+        <div>
+          <span style="margin-right:10px;">空气温度:</span>
+          <span :style="{'color':indexData.kongQiTemperature.if_normal ?'#7FFF00':'red'}">{{indexData.dioxide.if_norma? '正常':'超出范围'}}</span>
+        </div>
+        <div>
+          <span style="margin-right:10px;">光照强度:</span>
+          <span :style="{'color':indexData.illumination.if_norma ?'#7FFF00':'red'}">{{indexData.dioxide.if_norma? '正常':'超出范围'}}</span>
+        </div>
+        <div>
+          <span style="margin-right:10px;">CO2浓度:</span>
+          <span :style="{'color':indexData.dioxide.if_norma ?'#7FFF00':'red'}">{{indexData.dioxide.if_norma? '正常':'超出范围'}}</span>
+        </div>
+        <div>
+          <span style="margin-right:10px;">水温:</span>
+          <span :style="{'color':indexData.waterTemperature.if_norma ?'#7FFF00':'red'}">{{indexData.dioxide.if_norma? '正常':'超出范围'}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import {mapState, mapActions } from 'vuex'
 import ICountUp from 'vue-countup-v2'
+
 export default {
   components:{
     ICountUp
@@ -64,11 +93,11 @@ export default {
           suffix: ''
       },
       indexData:{
-        kongHumidity:{ name: '空气湿度(RH%)', code:'kongHumidity', value: 0 }, 
-        kongQiTemperature:{ name: '空气温度(℃)', code:'kongQiTemperature', value: 0 }, 
-        illumination:{ name: '光照强度(lux)', code:'illumination', value: 0 }, 
-        dioxide:{ name: 'CO2浓度(ppm)', code:'dioxide', value: 1560 }, 
-        waterTemperature:{ name: '水温(℃)', code:'waterTemperature', value: 0 }
+        kongHumidity:{ name: '空气湿度(RH%)', code:'kongHumidity', value: 0 ,if_normal:true}, 
+        kongQiTemperature:{ name: '空气温度(℃)', code:'kongQiTemperature', value: 0 ,if_normal:true}, 
+        illumination:{ name: '光照强度(lux)', code:'illumination', value: 0 ,if_normal:true}, 
+        dioxide:{ name: 'CO2浓度(ppm)', code:'dioxide', value: 1560 ,if_normal:true}, 
+        waterTemperature:{ name: '水温(℃)', code:'waterTemperature', value: 0 ,if_normal:true}
       },
       form:{
         airHumidity:'20',
@@ -83,9 +112,35 @@ export default {
     this.initDatas()
     setInterval(()=>{
       this.initDatas()
-    },3600000)// 一小时更新一次数据
+    },300000)// 5分钟更新一次数据
   },
+  watch:{
+    formData:{
+      handler(n,o){
+        this.ifNormal()
+      },
+      deep:true
+    }
+  },
+  computed: {
+    ...mapState('setting', {
+      formData: state => state.formData
+    })
+    },
   methods:{
+    ...mapActions('setting', [
+        'setSetting'
+      ]),
+      ifNormal(){
+        for(let key of this.formData){
+          if(this.indexData[key].val > this.formData[key].max || this.indexData[key].val < this.formData[key].min){
+            this.$set(this.indexData[key],'if_normal',false)
+          }else {
+            this.$set(this.indexData[key],'if_normal',true)
+          }
+          
+        }
+      },
     // setData(){
     //   let newList = {
     //     kongHumidity:1, 
@@ -145,12 +200,14 @@ export default {
     border-radius: 8px;
     color: #fff;
     height: 100%;
+    margin-top: 20px;
     .statistic-item {
         display: flex;
         margin-bottom: 15px;
         padding: 10px 0;
         align-items: center;
         overflow: hidden;
+        margin-right: 30px;
     }
 
     .statistic-item .icon-content {
@@ -200,6 +257,7 @@ export default {
         -webkit-transition: border 0.2s ease-in-out;
         -o-transition: border 0.2s ease-in-out;
         transition: border 0.2s ease-in-out;
+        border: 1px solid #fff;
     }
 
     .box-content.shadow {
@@ -210,8 +268,8 @@ export default {
         color: #fff;
     }
     .title {
-        padding: 10px 10px 20px 10px;
-        text-align: center;
+        padding: 10px 10px 20px 30px;
+        text-align: left;
         font-size: 20px;
     }
     .dataList {

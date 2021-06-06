@@ -23,6 +23,12 @@ const demo = {
     },
     getDioxideList(params,url){
         return axios.post(`${base.egg}${url}`, params);
+    },
+    getMaxMinDataByMonth (params, url) {
+        return axios.post(`${base.egg}/home/getMaxMinDataByMonth`, params);
+    },
+    getMaxMinDataByWeek (params, url) {
+        return axios.post(`${base.egg}/home/getMaxMinDataByWeek`, params);
     }
 }
 
