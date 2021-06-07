@@ -181,8 +181,15 @@ export default {
   },
   computed: {
     ...mapState('setting', {
-      formData: state => state.formData
+      vuexData: state => state.formData
     })
+    },
+    mounted(){
+      let str = JSON.parse(sessionStorage.getItem('formData'))
+      for(let key in str){
+        this.$set(this.formData,`${key}Min`,str[key].min)
+        this.$set(this.formData,`${key}Max`,str[key].max)
+      }
     },
   methods:{
     ...mapActions('setting', [

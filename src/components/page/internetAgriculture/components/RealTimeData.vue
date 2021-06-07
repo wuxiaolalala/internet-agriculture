@@ -48,23 +48,23 @@
       <div style="padding: 20px 10px 20px 30px;  display:flex; justify-content: space-around; border:1px solid #fff;">
         <div>
           <span style="margin-right:10px;">空气湿度:</span>
-          <span :style="{'color':indexData.kongHumidity.if_normal ?'#7FFF00':'red'}">{{indexData.dioxide.if_norma? '正常':'超出范围'}}</span>
+          <span :style="{'color':indexData.kongHumidity.if_normal ?'#7FFF00':'red'}">{{indexData.kongHumidity.if_normal? '正常':'超出范围'}}</span>
         </div>
         <div>
           <span style="margin-right:10px;">空气温度:</span>
-          <span :style="{'color':indexData.kongQiTemperature.if_normal ?'#7FFF00':'red'}">{{indexData.dioxide.if_norma? '正常':'超出范围'}}</span>
+          <span :style="{'color':indexData.kongQiTemperature.if_normal ?'#7FFF00':'red'}">{{indexData.kongQiTemperature.if_normal ? '正常':'超出范围'}}</span>
         </div>
         <div>
           <span style="margin-right:10px;">光照强度:</span>
-          <span :style="{'color':indexData.illumination.if_norma ?'#7FFF00':'red'}">{{indexData.dioxide.if_norma? '正常':'超出范围'}}</span>
+          <span :style="{'color':indexData.illumination.if_normal ?'#7FFF00':'red'}">{{indexData.illumination.if_normal? '正常':'超出范围'}}</span>
         </div>
         <div>
           <span style="margin-right:10px;">CO2浓度:</span>
-          <span :style="{'color':indexData.dioxide.if_norma ?'#7FFF00':'red'}">{{indexData.dioxide.if_norma? '正常':'超出范围'}}</span>
+          <span :style="{'color':indexData.dioxide.if_normal ?'#7FFF00':'red'}">{{indexData.dioxide.if_normal? '正常':'超出范围'}}</span>
         </div>
         <div>
           <span style="margin-right:10px;">水温:</span>
-          <span :style="{'color':indexData.waterTemperature.if_norma ?'#7FFF00':'red'}">{{indexData.dioxide.if_norma? '正常':'超出范围'}}</span>
+          <span :style="{'color':indexData.waterTemperature.if_normal ?'#7FFF00':'red'}">{{indexData.waterTemperature.if_normal? '正常':'超出范围'}}</span>
         </div>
       </div>
     </div>
@@ -109,22 +109,51 @@ export default {
     };
   },
   mounted(){ 
+    let formData = {
+      kongHumidity:{
+          min:0,
+          max:0
+        },
+        kongQiTemperature:{
+          min:0,
+          max:0
+        },
+        illumination:{
+          min:0,
+          max:0
+        },
+        dioxide:{
+          min:0,
+          max:0
+        },
+        waterTemperature:{
+          min:0,
+          max:0
+        }
+    };
+    if(!sessionStorage.getItem('formData')){
+      sessionStorage.setItem('formData',JSON.stringify(formData))
+    }
+    
     this.initDatas()
+    this.ifNormal()
     setInterval(()=>{
       this.initDatas()
+      this.ifNormal()
     },300000)// 5分钟更新一次数据
   },
   watch:{
-    formData:{
+    flag:{
       handler(n,o){
         this.ifNormal()
       },
-      deep:true
+      // deep:true
     }
   },
   computed: {
     ...mapState('setting', {
-      formData: state => state.formData
+      formData: state => state.formData,
+      flag: state => state.flag
     })
     },
   methods:{
@@ -132,8 +161,9 @@ export default {
         'setSetting'
       ]),
       ifNormal(){
-        for(let key of this.formData){
-          if(this.indexData[key].val > this.formData[key].max || this.indexData[key].val < this.formData[key].min){
+        let formData = JSON.parse(sessionStorage.getItem('formData'))
+        for(let key in formData){
+          if(this.indexData[key].value > formData[key].max || this.indexData[key].value < formData[key].min){
             this.$set(this.indexData[key],'if_normal',false)
           }else {
             this.$set(this.indexData[key],'if_normal',true)

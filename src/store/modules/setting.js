@@ -3,6 +3,7 @@ export default {
   namespaced: true,//使用命名空间，这样只在局部使用
 
   state: {
+    flag:false,
     formData: {
       kongHumidity:{
           min:0,
@@ -28,8 +29,10 @@ export default {
   },
 
   mutations: {
-    setFormDataMutations (state, collegeList) {
-      state.collegeList = collegeList
+    setFormDataMutations (state, formData) {
+      sessionStorage.setItem('formData',JSON.stringify(formData))
+      state.formData = formData
+      state.flag = !state.flag
     }
   },
   actions: {
